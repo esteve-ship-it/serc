@@ -16,7 +16,7 @@
         android:maxLength="255"
         android:hint="@string/prompt_for_name"
         tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="131dp" />
+        tools:layout_editor_absoluteY="181dp" />
 
     <Button
         android:id="@+id/record_button"

@@ -7,7 +7,6 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
-import android.os.Environment.getExternalStorageDirectory
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -43,7 +42,7 @@ class SampleActivity : AppCompatActivity() {
             .withListener(multiListener)
             .check()
         if (multiListener.proceed) {
-            Log.i(TAG, "Permissions granted, here we go...")
+            Log.i(TAG, "Premissions granted, here we go...")
         }
         record_button.setOnClickListener( View.OnClickListener {
             try {
@@ -85,8 +84,8 @@ class SampleActivity : AppCompatActivity() {
     }
 
     fun ensureDataFolderAndMappingFile() {
-        Log.d(TAG, getExternalStorageDirectory().toString())
-        val externalStorage: File = getExternalStorageDirectory()
+        Log.d(TAG, Environment.getExternalStorageDirectory().toString())
+        val externalStorage: File = Environment.getExternalStorageDirectory()
         audioDirPath = externalStorage.absolutePath + "/audioData";
         val directory = File(audioDirPath)
         directory.mkdir()

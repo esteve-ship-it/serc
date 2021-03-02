@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">SERC Sound Sampler</string>
+    <string name="app_name">SERC Sampler</string>
     <string name="prompt_for_name">Enter a file name</string>
+    <string name="delete">Delete</string>
+    <string name="empty"> </string>
+    <string name="sampling">Sampling Control</string>
+    <string name="sampleLength">Sample Length (seconds)</string>
+    <string name="sampleInterval">Sample Length (seconds)</string>
 </resources>
