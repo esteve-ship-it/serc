@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- font size big enough for most things; MGRS coordinate, etc, so at least ~18 characters of MGRS in a typical dropdown width -->
+    <dimen name="fontSize">14sp</dimen>
+    <dimen name="fontSizeHeader">24sp</dimen>
+
+    <!-- font size that can fit longer text strings, like lat-lon on the nineline screen, which can easily get up to ~26 characters 
+         optimally, fields using this value should be auto-resizing text to fit, since it's important that it all show, but in general
+         this value should suffice -->
+
+    <!-- Spinner right-side padding; the default value is too generous for some spinners (ie the location spinner on nineline),
+         especially on normal-sized screens, this is a smaller value -->
+
+    <!-- Toolbar buttons are a fixed size across all platforms, so they get a fixed text size -->
+
+    <!-- Putting res values in MapLibrary since most project libraries reference it -->
+
+    <!-- SERC -->
+
+    <dimen name="list_item_padding_sides">16dp</dimen>
+    <dimen name="list_item_height">60dp</dimen>
+    <dimen name="sercIconHeight">36dp</dimen>
+    <dimen name="sercButtonHeight">45dp</dimen>
+    <dimen name="sercHeaderHeight">56dp</dimen>
+    <dimen name="sercHeaderMargin">12dp</dimen>
+    <dimen name="sercFooterHeight">75dp</dimen>
+    <dimen name="sercHeaderColumnWidth">120dp</dimen>
+    <dimen name="sercHeaderColumnWidthPlus">132dp</dimen>
+    <dimen name="sercColumnWidth">60dp</dimen>
+    <dimen name="sercEntryColumnWidth">50dp</dimen>
+    <dimen name="sercYouIconHeight">20dp</dimen>
+    <dimen name="sercYouStatusSpacing">4dp</dimen>
+    <dimen name="sercLayerMargin">3dp</dimen>          <!-- For the Ignore / Check buttons -->
+    <dimen name="sercLayerSideMargin">8dp</dimen>      <!-- For the Ignore / Check buttons -->
+    <dimen name="sercLayerWideSideMargin">12dp</dimen> <!-- For the Ignore / Check Bluetooth button -->
+</resources>
+

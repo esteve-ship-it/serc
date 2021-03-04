@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/samplingHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sercHeaderHeight"
+
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/sercHeaderMargin"
+            android:layout_marginTop="@dimen/sercHeaderMargin"
+            android:layout_weight="1"
+            android:text="@string/sampling"
+            android:textSize="@dimen/fontSizeHeader" />
+
+        <ImageButton
+            android:id="@+id/addSource"
+            android:layout_width="@dimen/sercButtonHeight"
+            android:layout_height="@dimen/sercButtonHeight"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="1"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_myplussign_blue" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/samplingSources"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/samplingHeader"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sercFooterHeight"
+
+        android:background="@android:color/holo_orange_light"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/sampleLength" />
+
+            <EditText
+                android:id="@+id/sampleLength"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/sampleInterval" />
+
+            <EditText
+                android:id="@+id/sampleInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

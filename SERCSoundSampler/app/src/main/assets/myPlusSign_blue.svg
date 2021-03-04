@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <!-- Use a circle to inspect what point is what
+    <circle cx="196" cy="260" r="10" />
+    -->
+    <circle style="fill:#0000ff" cx="230" cy="10" r="10" />
+    <circle style="fill:#0000ff" cx="282" cy="10" r="10" />
+    <circle style="fill:#0000ff" cx="10" cy="230" r="10" />
+    <circle style="fill:#0000ff" cx="10" cy="282" r="10" />
+    <circle style="fill:#0000ff" cx="230" cy="502" r="10" />
+    <circle style="fill:#0000ff" cx="282" cy="502" r="10" />
+    <circle style="fill:#0000ff" cx="502" cy="230" r="10" />
+    <circle style="fill:#0000ff" cx="502" cy="282" r="10" />
+    <path style="fill:#0000ff" d="M 0 230 10 220 502 220 512 230
+        512 282 502 292 10 292 0 282 "/>
+    <path style="fill:#0000ff" d="M 230 0 282 0 292 10 292 502 282 512
+            230 512 220 502 220 10"/>
+
+</svg>
