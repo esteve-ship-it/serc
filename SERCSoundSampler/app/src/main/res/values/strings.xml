@@ -5,5 +5,5 @@
     <string name="empty"> </string>
     <string name="sampling">Sampling Control</string>
     <string name="sampleLength">Sample Length (seconds)</string>
-    <string name="sampleInterval">Sample Length (seconds)</string>
+    <string name="sampleInterval">Sample Interval (seconds)</string>
 </resources>

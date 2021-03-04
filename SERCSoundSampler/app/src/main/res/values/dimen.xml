@@ -24,7 +24,7 @@
     <dimen name="sercButtonHeight">45dp</dimen>
     <dimen name="sercHeaderHeight">56dp</dimen>
     <dimen name="sercHeaderMargin">12dp</dimen>
-    <dimen name="sercFooterHeight">90dp</dimen>
+    <dimen name="sercFooterHeight">75dp</dimen>
     <dimen name="sercHeaderColumnWidth">120dp</dimen>
     <dimen name="sercHeaderColumnWidthPlus">132dp</dimen>
     <dimen name="sercColumnWidth">60dp</dimen>
