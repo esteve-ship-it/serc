@@ -27,7 +27,7 @@ class SamplingAllInOneActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate...")
         //requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.sample_and_rate_ctl_layout)
+        setContentView(R.layout.sample_and_rate_ctl_layout_ref)
         prefs = applicationContext.getSharedPreferences(KEY_PREFS, Context.MODE_PRIVATE)
         sampler = Sampler(prefs!!, PreferencesHelper(prefs!!))
         "${sampler!!.getSampleSecondLength()}".also { sampleLength.setText(it) }

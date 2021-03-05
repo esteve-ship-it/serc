@@ -12,12 +12,17 @@ class PreferencesHelper(val prefs: SharedPreferences) {
         var value: String? = prefs.getString(pref, "")
         return if (value != "") indexWithDefault(value!!, arr, defaultInt) else defaultInt
     }
-
     fun indexWithDefault(value: String, arr: List<String>, defaultInt: Int): Int {
         var rv: Int = if (arr.indexOf(value) >= 0) arr.indexOf(value) else defaultInt
         return rv
     }
 
+    /*
+    add: key.fan -> fan,0
+    add key.lawnmower -> lawnmower,0; fan,1
+    0,fan
+    0,lawnmower; 1,fan
+     */
     fun preserveList(key: String, array: List<String>) {
         array.forEachIndexed { i, s -> prefs.edit().putInt("${key}.${s}",i)!!.commit() }
         val ts = TreeSet<String>(array)
@@ -25,8 +30,7 @@ class PreferencesHelper(val prefs: SharedPreferences) {
     }
     fun recallList(key: String): ArrayList<String> {
         var rv = ArrayList<String>()
-        var ts = TreeSet<String>()
-        prefs.getStringSet(key, ts)
+        var ts = TreeSet<String>(prefs.getStringSet(key, TreeSet<String>()))
         val tm = TreeMap<Int, String>()
         for (s in ts) {
             val i = prefs.getInt("${key}.${s}", -1)
@@ -34,5 +38,6 @@ class PreferencesHelper(val prefs: SharedPreferences) {
         }
         return ArrayList(tm.values)
     }
+    fun clearAll() { prefs.edit().clear().apply() }
 
 }
