@@ -25,24 +25,22 @@ class SamplingAllInOneActivity : AppCompatActivity() {
         val TAG = SamplingAllInOneActivity::class.java.simpleName
         val KEY_PREFS = "${TAG}.PREFS"
     }
-    val prefs: SharedPreferences
-    val helper: PreferencesHelper
-    val sampler: Sampler
-    val db: SoundDatabase
-    val keeper: SourceListKeeper
-    val adapter: SourceAdapter
-    init {
+    lateinit var prefs: SharedPreferences
+    lateinit var helper: PreferencesHelper
+    lateinit var sampler: Sampler
+    lateinit var db: SoundDatabase
+    lateinit var keeper: SourceListKeeper
+    lateinit var adapter: SourceAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate...")
         prefs = applicationContext.getSharedPreferences(KEY_PREFS, Context.MODE_PRIVATE)
         helper = PreferencesHelper(prefs)
         sampler = Sampler(prefs, helper)
         keeper = SourceListKeeper(helper)
         db = SoundDatabase(applicationContext.resources.getString(R.string.bad_item))
         adapter = SourceAdapter(applicationContext, prefs, helper, keeper, db)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate...")
         //requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.sample_and_rate_ctl_layout_ref)
         "${sampler!!.getSampleSecondLength()}".also { sampleLength.setText(it) }
