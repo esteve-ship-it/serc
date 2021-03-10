@@ -3,6 +3,7 @@
     
     <!-- font size big enough for most things; MGRS coordinate, etc, so at least ~18 characters of MGRS in a typical dropdown width -->
     <dimen name="fontSize">14sp</dimen>
+    <dimen name="fontSizeDetail">12sp</dimen>
     <dimen name="fontSizeHeader">24sp</dimen>
 
     <!-- font size that can fit longer text strings, like lat-lon on the nineline screen, which can easily get up to ~26 characters 
@@ -20,6 +21,7 @@
 
     <dimen name="list_item_padding_sides">16dp</dimen>
     <dimen name="list_item_height">60dp</dimen>
+    <dimen name="sercSoundRep">36dp</dimen>
     <dimen name="sercIconHeight">36dp</dimen>
     <dimen name="sercButtonHeight">45dp</dimen>
     <dimen name="sercSourceEntryHeight">48dp</dimen>

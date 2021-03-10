@@ -1,11 +1,38 @@
-package edu.mtu.sercsoundsampler;
+package edu.mtu.sercsoundsampler
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.widget.EditText
 import android.widget.LinearLayout;
+import android.widget.Toast
 
 import androidx.appcompat.app.AlertDialog;
+import edu.mtu.sercsoundsampler.model.SourceListKeeper
 
-class SourceInputDialog {
+class SourceInputDialog(val activity: Activity, val keeper: SourceListKeeper) {
+    val context = activity.applicationContext
+    val title = context.resources.getString(R.string.addSound)
+    val prompt = context.resources.getString(R.string.prompt_for_name)
+    val ok = context.resources.getString(R.string.ok)
+    val cancel = context.resources.getString(R.string.cancel)
+    val already = context.resources.getString(R.string.soundAlreadyAdded)
+
+    fun show() {
+        val rv = AlertDialog.Builder(activity)
+        val input = EditText(activity)
+        val inputLayout = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
+            , LinearLayout.LayoutParams.MATCH_PARENT)
+        input.layoutParams = inputLayout
+        rv.setView(input).setTitle(title).setMessage(prompt)
+            .setPositiveButton(ok, { d , i -> {
+                val s = input.text.toString().trim()
+                if (keeper.contains(s)) {
+                    Toast.makeText(context, already, Toast.LENGTH_SHORT).show()
+                    input.setText(R.string.empty)
+                } else if (s.length > 0) keeper.add(s)
+            }} )
+        rv.setNegativeButton(cancel, { d , i -> {}} ).show()
+    }
     /*
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
     alertDialog.setTitle("PASSWORD");

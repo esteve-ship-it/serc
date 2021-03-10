@@ -29,6 +29,7 @@
             android:layout_weight=".4"
             android:background="@drawable/transparent256x256"
             android:contentDescription="TODO"
+            android:onClick="showNameDialog"
             android:src="@drawable/ic_myplussign_blue" />
     </LinearLayout>
 
