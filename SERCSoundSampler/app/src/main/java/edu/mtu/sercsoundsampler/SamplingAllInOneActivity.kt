@@ -43,9 +43,10 @@ class SamplingAllInOneActivity : AppCompatActivity() {
         adapter = SourceAdapter(applicationContext, prefs, helper, keeper, db)
         //requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.sample_and_rate_ctl_layout_ref)
+        samplingSources.adapter = adapter
         "${sampler!!.getSampleSecondLength()}".also { sampleLength.setText(it) }
         "${sampler!!.getSampleSecondInterval()}".also { sampleInterval.setText(it) }
-        addSource.setOnClickListener {  }
+        addSource.setOnClickListener { SourceInputDialog(this, keeper).show() }
     }
 
     fun showNameDialog() {

@@ -23,16 +23,22 @@ class SourceInputDialog(val activity: Activity, val keeper: SourceListKeeper) {
         val inputLayout = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
             , LinearLayout.LayoutParams.MATCH_PARENT)
         input.layoutParams = inputLayout
-        rv.setView(input).setTitle(title).setMessage(prompt)
-            .setPositiveButton(ok, { d , i -> {
-                val s = input.text.toString().trim()
-                if (keeper.contains(s)) {
-                    Toast.makeText(context, already, Toast.LENGTH_SHORT).show()
-                    input.setText(R.string.empty)
-                } else if (s.length > 0) keeper.add(s)
-            }} )
-        rv.setNegativeButton(cancel, { d , i -> {}} ).show()
+        rv.setView(input)
+                .setTitle(title)
+                .setMessage(prompt)
+                .setNegativeButton(cancel, { d , i -> {}} )
+                .setPositiveButton(ok, { d, i -> add(input) } )
+                .show()
     }
+
+    fun add(i: EditText) {
+        val s = i.text.toString().trim();
+        if (keeper.contains(s)) {
+            Toast.makeText(context, already, Toast.LENGTH_SHORT).show()
+            i.setText(R.string.empty)
+        } else if (s.length > 0) keeper.add(s)
+    }
+
     /*
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
     alertDialog.setTitle("PASSWORD");

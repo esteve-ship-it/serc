@@ -29,7 +29,7 @@ class TestSourceListKeeper {
     val db: SoundDatabase
     init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        prefs = appContext.getSharedPreferences(SamplingAllInOneActivity.KEY_PREFS, Context.MODE_PRIVATE)
+        prefs = appContext.getSharedPreferences(SamplingAllInOneActivity.KEY_PREFS + "_TEST", Context.MODE_PRIVATE)
         helper = PreferencesHelper(prefs)
         keeper = SourceListKeeper(helper)
         db = SoundDatabase(appContext.resources.getString(R.string.bad_item))
