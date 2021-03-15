@@ -41,42 +41,51 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/sercFooterHeight"
 
-        android:background="@android:color/holo_orange_light"
+        android:background="match_parent"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:text="@string/sampleLength" />
 
             <EditText
                 android:id="@+id/sampleLength"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/fontSizeHeader"
                 android:inputType="number" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:text="@string/sampleInterval" />
 
             <EditText
                 android:id="@+id/sampleInterval"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/fontSizeHeader"
                 android:inputType="number" />
+
         </LinearLayout>
     </LinearLayout>
 
