@@ -5,16 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/sercSourceEntryHeight">
 
-    <TextView
-        android:id="@+id/srcTextView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/textualStuff"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:textSize="@dimen/fontSizeHeader"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:text="TextView" />
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/srcTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/sercLayerMargin"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/fontSizeHeader"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="TextView" />
+        <TextView
+            android:id="@+id/srcStatsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/sercLayerMargin"
+            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/fontSizeDetail"
+            app:layout_constraintTop_toBottomOf="@+id/srcTextView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="TextView" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/soundRepresentation"
+        android:layout_width="@dimen/sercSoundRep"
+        android:layout_height="@dimen/sercSoundRep"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintEnd_toStartOf="@+id/srcOnOff"
+        android:src="@drawable/transparent256x256" />
     <Switch
         android:id="@+id/srcOnOff"
         android:layout_width="wrap_content"

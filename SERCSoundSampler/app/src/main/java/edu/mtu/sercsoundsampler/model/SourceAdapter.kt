@@ -1,26 +1,28 @@
 package edu.mtu.sercsoundsampler.model
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import edu.mtu.sercsoundsampler.R
 
-class SourceAdapter(val prefs: SharedPreferences): BaseAdapter() {
-    val prefsHelper = PreferencesHelper(prefs)
-    override fun getCount(): Int {
-        TODO("Not yet implemented")
+class SourceAdapter(val cText: Context
+                    , val prefs: SharedPreferences
+                    , val helper: PreferencesHelper
+                    , val keeper: SourceListKeeper, val db: SoundDatabase)
+        : ArrayAdapter<SoundEntry>(cText, R.layout.source_item_layout) {
+    override fun getCount(): Int { return keeper.getCount() }
+    override fun getItem(p0: Int): SoundEntry { return db.getEntry(keeper.getItem(p0)) }
+    override fun getView(position: Int, view: View?, parent: ViewGroup): View {
+        val rowView = if (view != null) view else
+            LayoutInflater.from(context).inflate(R.layout.source_item_layout
+                    , null, false)
+        var entry = db.getEntry(keeper.getItem(position))
+        val nameView = rowView.findViewById<TextView>(R.id.srcTextView)
+        nameView.text = entry.name
+        return rowView
     }
-
-    override fun getItem(p0: Int): Any {
-        TODO("Not yet implemented")
-    }
-
-    override fun getItemId(p0: Int): Long {
-        TODO("Not yet implemented")
-    }
-
-    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        TODO("Not yet implemented")
-    }
-
 }
