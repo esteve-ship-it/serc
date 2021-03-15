@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/sercSourceEntryHeight">
 
@@ -40,10 +41,19 @@
         app:layout_constraintVertical_weight="1"
         app:layout_constraintEnd_toStartOf="@+id/srcOnOff"
         android:src="@drawable/transparent256x256" />
+
+    <ImageView
+        android:id="@+id/buffer"
+        android:layout_width="12dp"
+        android:layout_height="match_parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <Switch
         android:id="@+id/srcOnOff"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:scaleX="1.4"
+        android:scaleY="1.4"
+        app:layout_constraintRight_toLeftOf="@+id/buffer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
