@@ -40,8 +40,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/sercFooterHeight"
-
-        android:background="match_parent"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent">
 
