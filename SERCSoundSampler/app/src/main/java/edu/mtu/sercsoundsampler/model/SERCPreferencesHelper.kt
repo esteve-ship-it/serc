@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PreferencesHelper(val prefs: SharedPreferences) {
+class SERCPreferencesHelper(val prefs: SharedPreferences) {
     fun preserveString(key: String, value: String) { prefs.edit().putString(key, value)!!.commit() }
     fun preserveLong(key: String, value: Long) { prefs.edit().putLong(key, value)!!.commit() }
 

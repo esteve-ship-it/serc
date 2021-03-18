@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import edu.mtu.sercsoundsampler.model.PreferencesHelper
-import edu.mtu.sercsoundsampler.model.SoundDatabase
-import edu.mtu.sercsoundsampler.model.SourceAdapter
+import edu.mtu.sercsoundsampler.model.SERCPreferencesHelper
+import edu.mtu.sercsoundsampler.model.SERCSoundDatabase
+import edu.mtu.sercsoundsampler.model.SERCSourceAdapter
 import edu.mtu.sercsoundsampler.model.SourceListKeeper
 
 import org.junit.Test
@@ -23,17 +23,17 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class TestSourceListKeeper {
     val prefs: SharedPreferences
-    val adapter: SourceAdapter
-    val helper: PreferencesHelper
+    val adapter: SERCSourceAdapter
+    val helper: SERCPreferencesHelper
     val keeper: SourceListKeeper
-    val db: SoundDatabase
+    val db: SERCSoundDatabase
     init {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        prefs = appContext.getSharedPreferences(SamplingAllInOneActivity.KEY_PREFS + "_TEST", Context.MODE_PRIVATE)
-        helper = PreferencesHelper(prefs)
+        prefs = appContext.getSharedPreferences(SERCSamplingAllInOneActivity.KEY_PREFS + "_TEST", Context.MODE_PRIVATE)
+        helper = SERCPreferencesHelper(prefs)
         keeper = SourceListKeeper(helper)
-        db = SoundDatabase(appContext.resources.getString(R.string.bad_item))
-        adapter = SourceAdapter(appContext, prefs, helper, keeper, db)
+        db = SERCSoundDatabase(appContext.resources.getString(R.string.bad_item))
+        adapter = SERCSourceAdapter(appContext, prefs, helper, keeper, db)
     }
     @Before
     fun setUp() {

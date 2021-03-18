@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.Window
 
 class MainActivity : AppCompatActivity() {
     public val TIME_OUT_MS = 1000L
@@ -14,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         val handler = Handler()
         handler.postDelayed(Runnable {
 //            val intent = Intent(this, SampleActivity::class.java)
-            val intent = Intent(this, SamplingAllInOneActivity::class.java)
+            val intent = Intent(this, SERCSamplingAllInOneActivity::class.java)
             startActivity(intent)
             finish()
         }, TIME_OUT_MS)

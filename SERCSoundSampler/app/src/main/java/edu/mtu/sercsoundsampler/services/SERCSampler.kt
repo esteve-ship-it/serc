@@ -1,9 +1,9 @@
-package edu.mtu.sercsoundsampler
+package edu.mtu.sercsoundsampler.services
 
 import android.content.SharedPreferences
-import edu.mtu.sercsoundsampler.model.PreferencesHelper
+import edu.mtu.sercsoundsampler.model.SERCPreferencesHelper
 
-class Sampler(val prefs: SharedPreferences, val helper: PreferencesHelper) {
+class SERCSampler(val prefs: SharedPreferences, val helper: SERCPreferencesHelper) {
     var sources: HashSet<String> = HashSet()
     companion object REF {
         val TAG = "Sampler"
