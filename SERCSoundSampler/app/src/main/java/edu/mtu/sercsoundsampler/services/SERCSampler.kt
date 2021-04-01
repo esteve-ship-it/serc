@@ -2,6 +2,7 @@ package edu.mtu.sercsoundsampler.services
 
 import android.content.SharedPreferences
 import edu.mtu.sercsoundsampler.model.SERCPreferencesHelper
+import kotlin.collections.HashSet
 
 class SERCSampler(val prefs: SharedPreferences, val helper: SERCPreferencesHelper) {
     var sources: HashSet<String> = HashSet()
@@ -55,6 +56,7 @@ class SERCSampler(val prefs: SharedPreferences, val helper: SERCPreferencesHelpe
             sampling = true
         }
     }
+
     fun run() {
         
     }
