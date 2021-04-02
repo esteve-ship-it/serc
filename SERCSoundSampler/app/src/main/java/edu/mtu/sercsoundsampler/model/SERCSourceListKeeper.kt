@@ -1,6 +1,8 @@
 package edu.mtu.sercsoundsampler.model
 
-class SourceListKeeper(val helper: SERCPreferencesHelper) {
+import edu.mtu.sercsoundsampler.services.SERCSampler
+
+class SourceListKeeper(val s: String, val sampler: SERCSampler, val helper: SERCPreferencesHelper) {
     var adapter: SERCSourceAdapter? = null
     companion object {
         val TAG = "SourceListKeeper"
