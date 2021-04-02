@@ -1,10 +1,12 @@
 package edu.mtu.sercsoundsampler
 
+import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.karumi.dexter.Dexter
 import edu.mtu.sercsoundsampler.model.SERCPreferencesHelper
 import edu.mtu.sercsoundsampler.model.SERCSoundDatabase
 import edu.mtu.sercsoundsampler.model.SERCSourceAdapter
@@ -29,14 +31,25 @@ class SERCSamplingAllInOneActivity : AppCompatActivity() {
     lateinit var db: SERCSoundDatabase
     lateinit var keeper: SourceListKeeper
     lateinit var adapter: SERCSourceAdapter
+    val multiListener: MultiListener = MultiListener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate...")
+        Dexter.withContext(this)
+            .withPermissions(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.RECORD_AUDIO)
+            .withListener(multiListener)
+            .check()
+        if (multiListener.proceed) {
+            Log.i(TAG, "Premissions granted, here we go...")
+        }
         prefs = applicationContext.getSharedPreferences(KEY_PREFS, Context.MODE_PRIVATE)
         helper = SERCPreferencesHelper(prefs)
-        sampler = SERCSampler(prefs, helper)
-        keeper = SourceListKeeper(helper)
+        sampler = SERCSampler(prefs, helper, multiListener)
+        keeper = SourceListKeeper(applicationContext.resources.getString(R.string.bad_item), sampler, helper)
         db = SERCSoundDatabase(applicationContext.resources.getString(R.string.bad_item), sampler)
         adapter = SERCSourceAdapter(applicationContext, prefs, helper, keeper, db)
         //requestWindowFeature(Window.FEATURE_NO_TITLE)
