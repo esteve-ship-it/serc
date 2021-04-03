@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.karumi.dexter.Dexter
@@ -13,6 +14,7 @@ import edu.mtu.sercsoundsampler.model.SERCSourceAdapter
 import edu.mtu.sercsoundsampler.model.SourceListKeeper
 import edu.mtu.sercsoundsampler.services.SERCSampler
 import kotlinx.android.synthetic.main.sample_and_rate_ctl_layout.*
+import java.io.File
 
 /** SampleTypeManagerActivity - Manage a list of sounds you want to capture
  *
@@ -48,7 +50,10 @@ class SERCSamplingAllInOneActivity : AppCompatActivity() {
         }
         prefs = applicationContext.getSharedPreferences(KEY_PREFS, Context.MODE_PRIVATE)
         helper = SERCPreferencesHelper(prefs)
-        sampler = SERCSampler(prefs, helper, multiListener)
+        val download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val serc = File(download, "serc")
+        serc.mkdir()
+        sampler = SERCSampler(prefs, helper, multiListener, serc)
         keeper = SourceListKeeper(applicationContext.resources.getString(R.string.bad_item), sampler, helper)
         db = SERCSoundDatabase(applicationContext.resources.getString(R.string.bad_item), sampler)
         adapter = SERCSourceAdapter(applicationContext, prefs, helper, keeper, db)

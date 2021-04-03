@@ -1,6 +1,7 @@
 package edu.mtu.sercsoundsampler.services
 
 import android.Manifest
+import android.app.Application
 import android.content.SharedPreferences
 import android.location.Location
 import android.media.AudioFormat
@@ -26,7 +27,8 @@ import java.util.*
 import kotlin.collections.HashSet
 
 class SERCSampler(val prefs: SharedPreferences
-                , val helper: SERCPreferencesHelper, val multiListener: MultiListener) {
+                , val helper: SERCPreferencesHelper
+                , val multiListener: MultiListener, val dataFolder: File) {
     var sources: HashSet<String> = HashSet()
     companion object {
         val TAG = "Sampler"
@@ -41,26 +43,34 @@ class SERCSampler(val prefs: SharedPreferences
     }
     val emptySet = HashSet<String>()
     var enableSampling = true
+    init { GlobalScope.launch { performSampling() } }
 
-    suspend fun performSample(sampleLengthSeconds: Long, intervalSeconds: Long) {
+    suspend fun performSampling() {
         Log.i(TAG, "Coroutine to collect sample started...")
         while (enableSampling) {
-            delay((intervalSeconds - sampleLengthSeconds) * 1000)
-            sample(sampleLengthSeconds)
+            delay((getSampleSecondInterval() - getSampleSecondLength()) * 1000)
+            sample(getSampleSecondLength())
         }
         Log.i(TAG, "Coroutine to collect sample stopped...")
     }
 
-    private fun addEntry(mappingFile: File, sounds: Set<String>, audioFilename: String, location: Location) {
-        val w: PrintWriter = PrintWriter(mappingFile)
+    fun getMappingFile(): File {
+        val dateStr = SimpleDateFormat("yyyy_MM_dd").format(Date())
+        val dailyMappingFilename = "${dateStr}.lson"
+        val f = File(dataFolder, dailyMappingFilename)
+        if (!f.exists()) f.createNewFile()
+        return f
+    }
+    private fun addEntry(sounds: Set<String>, audioFilename: String, location: Location) {
+        val w: PrintWriter = PrintWriter(getMappingFile())
         w.append(audioFilename)
-                .append(",[")
+                .append("{\"srcs\":[")
                 .append(csvOf(sounds))
-                .append("],")
+                .append("],\"lat\":\"")
                 .append(location.latitude.toString())
-                .append(",")
+                .append("\",\"lng\":\"")
                 .append(location.longitude.toString())
-                .append("\n")
+                .append("\"}\n")
         w.close()
     }
 
@@ -75,8 +85,6 @@ class SERCSampler(val prefs: SharedPreferences
      */
     private fun sample(sampleLengthSeconds: Long) {
 
-        var audioDirPath: File? = Environment.getDataDirectory()
-        var mappingFile: File? = null
         var dateFilename = ""
         var sd: File? = null
         try {
@@ -84,12 +92,12 @@ class SERCSampler(val prefs: SharedPreferences
             var recorder = MyRecorder(sampleLengthSeconds.toInt(), DEFAULT_SAMPLE_RATE)
             var location = Location("me")
             if (multiListener.proceed) {
-                var date = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(Date())
+                val date = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(Date())
                 dateFilename = date.toString() + ".pcm"
                 Log.i(TAG, "Recording " + dateFilename)
-                sd = File(audioDirPath, dateFilename)
-                recorder.run(sd!!, TAG)
-                addEntry(mappingFile!!, sources, dateFilename, location)
+                sd = File(dataFolder, dateFilename)
+                recorder.run(sd, TAG)
+                addEntry(sources, dateFilename, location)
 //                    mappingFile!!.appendText(temporyTitleForButton + "," + audioFile + "\n")
 
             } else {
@@ -151,11 +159,12 @@ class MyRecorder(val sampleLengthSeconds: Int, val sampleRateHz: Int) : Thread()
 
     var x = 0
     //comment
-    fun run(filename: File, tag: String) {
+    fun run(file: File, tag: String) {
         var data = ByteArray(bufferSize)
         audioRecorder.startRecording()
         audioRecorder.read(data,0,bufferSize)
-        filename.writeBytes(data)
+        file.writeBytes(data)
+        //audioRecorder.stop()
     }
 }
 
