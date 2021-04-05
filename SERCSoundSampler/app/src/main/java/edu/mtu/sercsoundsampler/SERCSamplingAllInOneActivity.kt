@@ -50,10 +50,19 @@ class SERCSamplingAllInOneActivity : AppCompatActivity() {
         }
         prefs = applicationContext.getSharedPreferences(KEY_PREFS, Context.MODE_PRIVATE)
         helper = SERCPreferencesHelper(prefs)
-        val download = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val serc = File(download, "serc")
-        serc.mkdir()
-        sampler = SERCSampler(prefs, helper, multiListener, serc)
+        val useAppFolder = false
+        var serc: File? = null
+        if (useAppFolder) {
+            serc = File(applicationInfo.dataDir, "serc")
+        } else {
+//            var download: File? = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            var download: String? = Environment.getExternalStorageDirectory().toString()
+            serc = File(download!!, "serc")
+            download = null
+        }
+        serc!!.mkdir()
+        sampler = SERCSampler(prefs, helper, multiListener, serc!!.canonicalPath)
+        serc = null
         keeper = SourceListKeeper(applicationContext.resources.getString(R.string.bad_item), sampler, helper)
         db = SERCSoundDatabase(applicationContext.resources.getString(R.string.bad_item), sampler)
         adapter = SERCSourceAdapter(applicationContext, prefs, helper, keeper, db)
@@ -63,6 +72,7 @@ class SERCSamplingAllInOneActivity : AppCompatActivity() {
         "${sampler!!.getSampleSecondLength()}".also { sampleLength.setText(it) }
         "${sampler!!.getSampleSecondInterval()}".also { sampleInterval.setText(it) }
         addSource.setOnClickListener { SourceInputDialog(this, keeper).show() }
+        //sampleLength.setOnClickListener { sampleLength.setText(""); }
     }
 
     fun showNameDialog() {

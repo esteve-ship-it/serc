@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.sample_layout.*
 import kotlinx.coroutines.*
 
 import java.io.File
+import java.io.FileOutputStream
 import java.io.PrintWriter
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
@@ -28,7 +29,7 @@ import kotlin.collections.HashSet
 
 class SERCSampler(val prefs: SharedPreferences
                 , val helper: SERCPreferencesHelper
-                , val multiListener: MultiListener, val dataFolder: File) {
+                , val multiListener: MultiListener, val dataPath: String) {
     var sources: HashSet<String> = HashSet()
     companion object {
         val TAG = "Sampler"
@@ -55,29 +56,31 @@ class SERCSampler(val prefs: SharedPreferences
     }
 
     fun getMappingFile(): File {
-        val dateStr = SimpleDateFormat("yyyy_MM_dd").format(Date())
+        val dateStr = SimpleDateFormat("yyyy_MM_dd_HH").format(Date())
         val dailyMappingFilename = "${dateStr}.lson"
-        val f = File(dataFolder, dailyMappingFilename)
+        val f = File(dataPath, dailyMappingFilename)
         if (!f.exists()) f.createNewFile()
         return f
     }
     private fun addEntry(sounds: Set<String>, audioFilename: String, location: Location) {
-        val w: PrintWriter = PrintWriter(getMappingFile())
-        w.append(audioFilename)
-                .append("{\"srcs\":[")
+        val w: PrintWriter = PrintWriter(FileOutputStream(getMappingFile(), true))
+        w.append("{\"file\":\"")
+                .append(audioFilename)
+                .append("\",\"srcs\":[")
                 .append(csvOf(sounds))
                 .append("],\"lat\":\"")
                 .append(location.latitude.toString())
                 .append("\",\"lng\":\"")
                 .append(location.longitude.toString())
                 .append("\"}\n")
+                .flush()
         w.close()
     }
 
     fun csvOf(sounds: Set<String>): String {
         val sb = StringBuilder()
-        sounds.map { sb.append(",").append(it)}
-        return sb.toString().substring(1)
+        sounds.map { sb.append(",").append("\"").append(it).append("\"")}
+        return if (sounds.size > 0) sb.toString().substring(1) else ""
     }
 
     /** When we sample, we want the sound in a *.wav file and an entry added to the metadata file
@@ -95,7 +98,7 @@ class SERCSampler(val prefs: SharedPreferences
                 val date = SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(Date())
                 dateFilename = date.toString() + ".pcm"
                 Log.i(TAG, "Recording " + dateFilename)
-                sd = File(dataFolder, dateFilename)
+                sd = File(dataPath, dateFilename)
                 recorder.run(sd, TAG)
                 addEntry(sources, dateFilename, location)
 //                    mappingFile!!.appendText(temporyTitleForButton + "," + audioFile + "\n")
@@ -159,11 +162,11 @@ class MyRecorder(val sampleLengthSeconds: Int, val sampleRateHz: Int) : Thread()
 
     var x = 0
     //comment
-    fun run(file: File, tag: String) {
+    fun run(file: File?, tag: String) {
         var data = ByteArray(bufferSize)
         audioRecorder.startRecording()
         audioRecorder.read(data,0,bufferSize)
-        file.writeBytes(data)
+        file!!.writeBytes(data)
         //audioRecorder.stop()
     }
 }
